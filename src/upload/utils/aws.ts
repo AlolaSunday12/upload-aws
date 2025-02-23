@@ -1,11 +1,7 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-//import * as dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
-//const envConfig = dotenv.config();
-
-//if (envConfig.error) {
-  // throw new Error(`Failed to load environment variables: ${envConfig.error.message}`);
-//}
+dotenv.config();
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION as string,
@@ -30,7 +26,7 @@ export async function uploadImages(files: Array<Express.Multer.File>) {
         Key: filename,
         Body: file.buffer,
         ContentType: file.mimetype,
-        ACL: 'public-read',
+       // ACL: 'public-read',
       });
 
       await s3.send(command);
